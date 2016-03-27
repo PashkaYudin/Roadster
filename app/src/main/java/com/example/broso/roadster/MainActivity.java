@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            getData(extras);
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -30,12 +36,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void getData(Bundle extras) {
+        double newLat = extras.getDouble("newLat");
+        double newLong = extras.getDouble("newLong");
+
+        String coords = new String(newLat +","+newLong);//
+        Toast.makeText(this, coords, Toast.LENGTH_SHORT).show();
+//        LatLng coords = new LatLng(newLat, newLong);
+//        map.markerMaker(coords);
+    }
+
 
     public void newEvent() {
         Intent newEvent = new Intent(this, NewEvent.class);
-        startActivityForResult(newEvent, 1);
+        startActivity(newEvent);
     }
-
 
 
     @Override
