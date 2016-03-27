@@ -1,5 +1,6 @@
 package com.example.broso.roadster;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -65,10 +66,9 @@ public class NewEvent extends AppCompatActivity implements GoogleApiClient.Conne
 
     public void postData(Double Lat, Double Long){
 //        Toast.makeText(this, Lat+" - "+Long, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-        intent.putExtra("newLat", Lat);
-        intent.putExtra("newLong", Long);
-        startActivity(intent);
+        setResult(Activity.RESULT_OK,
+                new Intent().putExtra("latitude", Lat).putExtra("longitude", Long));
+        finish();
     }
 
     @Override

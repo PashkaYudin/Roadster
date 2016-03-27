@@ -152,14 +152,11 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
     }
 
     public void markerMaker(LatLng latLng) {
-//        MarkerOptions options = new MarkerOptions().position( latLng );
-////        options.title( getAddressFromLatLng(latLng) );
-//        options.title("Я здесь!");
-//
-//        options.icon( BitmapDescriptorFactory.fromBitmap(
-//                BitmapFactory.decodeResource(getResources(), R.drawable.ic_announcement_24dp) ) );
-//
-//        getMap().addMarker(options);
+        MarkerOptions options = new MarkerOptions().position( latLng );
+        options.title( getAddressFromLatLng( latLng ) );
+
+        options.icon( BitmapDescriptorFactory.defaultMarker() );
+        getMap().addMarker( options );
     }
 
     @Override

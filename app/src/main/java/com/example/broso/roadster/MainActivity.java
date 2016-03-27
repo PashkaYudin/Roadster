@@ -1,5 +1,6 @@
 package com.example.broso.roadster;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,11 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            getData(extras);
-        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -34,23 +32,45 @@ public class MainActivity extends AppCompatActivity {
                 newEvent();
             }
         });
+
+//        Bundle extras = getIntent().getExtras();
+//        if (extras != null) {
+//            getData(extras);
+//        }
+
     }
 
-    private void getData(Bundle extras) {
-        double newLat = extras.getDouble("newLat");
-        double newLong = extras.getDouble("newLong");
-
-        String coords = new String(newLat +","+newLong);//
-        Toast.makeText(this, coords, Toast.LENGTH_SHORT).show();
-//        LatLng coords = new LatLng(newLat, newLong);
-//        map.markerMaker(coords);
-    }
+//    private void getData(Bundle extras) {
+//        double newLat = extras.getDouble("newLat");
+//        double newLong = extras.getDouble("newLong");
+//
+//        String coords = new String(newLat +","+newLong);//
+//        Toast.makeText(this, coords, Toast.LENGTH_SHORT).show();
+////        LatLng coords = new LatLng(newLat, newLong);
+////        map.markerMaker(coords);
+//    }
 
 
     public void newEvent() {
         Intent newEvent = new Intent(this, NewEvent.class);
-        startActivity(newEvent);
+        startActivityForResult(newEvent, 1);
     }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            double latitude = data.getDoubleExtra("latitude", 0);
+            double longitude = data.getDoubleExtra("longitude", 0);
+
+            Toast.makeText(this, latitude+" - "+longitude, Toast.LENGTH_SHORT).show();
+//            MapFragment map = new MapFragment();
+//            LatLng coords = new LatLng(latitude, longitude);
+//            map.markerMaker(coords);
+        }
+    }
+
 
 
     @Override
