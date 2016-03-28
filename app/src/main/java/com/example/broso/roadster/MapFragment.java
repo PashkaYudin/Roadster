@@ -121,11 +121,11 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
     @Override
     public void onMapClick(LatLng latLng) {
 
-        MarkerOptions options = new MarkerOptions().position( latLng );
-        options.title( getAddressFromLatLng( latLng ) );
-
-        options.icon( BitmapDescriptorFactory.defaultMarker() );
-        getMap().addMarker( options );
+//        MarkerOptions options = new MarkerOptions().position( latLng );
+//        options.title( getAddressFromLatLng( latLng ) );
+//
+//        options.icon( BitmapDescriptorFactory.defaultMarker() );
+//        getMap().addMarker( options );
     }
 
     private String getAddressFromLatLng( LatLng latLng ) {
