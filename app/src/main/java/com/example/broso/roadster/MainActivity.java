@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        }
 
     }
-
 //    private void getData(Bundle extras) {
 //        double newLat = extras.getDouble("newLat");
 //        double newLong = extras.getDouble("newLong");
@@ -65,23 +64,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //    }
 
     @Override
-    public void onMapReady(final GoogleMap map) {
-        final LatLng sydney = new LatLng(data.latitude, data.longitude);
-        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                map.addMarker(new MarkerOptions().position(sydney).title("ДТП").snippet("на крупской, 41"));
-            }
-        });
+    public void onMapReady(GoogleMap map) {
+
+        for (int i = 0; i < 3; i++)
+        {
+            LatLng sydney = new LatLng(data.lat[i], data.lon[i]);
+            map.addMarker(new MarkerOptions().position(sydney).title("ДТП").snippet(data.addresses[i]));
+        }
+
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Toast.makeText(getApplicationContext(), "Ты нажал на маркер", Toast.LENGTH_SHORT).show();
-                marker.showInfoWindow();
-                Intent details = new Intent(getApplicationContext(), Details.class);
-                details.putExtra("address", "Крупская, 41");
-                details.putExtra("id", "12");
-                startActivity(details);
+//                Toast.makeText(getApplicationContext(), "Ты нажал на маркер", Toast.LENGTH_SHORT).show();
+//                marker.showInfoWindow();
+                String place = marker.getSnippet();
+                Intent details = new Intent(getApplicationContext(), DetailInfo.class);
+                details.putExtra("address", place);
+                startActivityForResult(details, 1);
                 return true;
             }
         });

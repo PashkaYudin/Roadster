@@ -4,7 +4,6 @@
     <string name="google_api_key">AIzaSyDynjyPY_aO3YkCvU1VF3k2bJY5v7o7qhA</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="title_activity_new_event">Добавить событие</string>
-    <string name="title_activity_event">Информация</string>
-    <string name="title_activity_details">Details</string>
+    <string name="title_activity_detail_info">Описание</string>
 
 </resources>
