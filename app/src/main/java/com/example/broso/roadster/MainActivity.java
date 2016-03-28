@@ -16,6 +16,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -64,9 +65,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //    }
 
     @Override
-    public void onMapReady(GoogleMap map) {
-        LatLng sydney = new LatLng(data.latitude, data.longitude);
-        map.addMarker(new MarkerOptions().position(sydney).title("Это барнаул, детка!"));
+    public void onMapReady(final GoogleMap map) {
+        final LatLng sydney = new LatLng(data.latitude, data.longitude);
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                map.addMarker(new MarkerOptions().position(sydney).title("ДТП").snippet("на крупской, 41"));
+            }
+        });
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Toast.makeText(getApplicationContext(), "Ты нажал на маркер", Toast.LENGTH_SHORT).show();
+                marker.showInfoWindow();
+                Intent details = new Intent(getApplicationContext(), Details.class);
+                details.putExtra("address", "Крупская, 41");
+                details.putExtra("id", "12");
+                startActivity(details);
+                return true;
+            }
+        });
     }
 
     public void newEvent() {

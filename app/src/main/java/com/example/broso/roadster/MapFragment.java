@@ -161,8 +161,8 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Toast.makeText(getActivity(), "Ты нажал на маркер", Toast.LENGTH_SHORT).show();
-        marker.showInfoWindow();
+//        Toast.makeText(getActivity(), "Ты нажал на маркер", Toast.LENGTH_SHORT).show();
+//        marker.showInfoWindow();
 //        Intent info = new Intent(getActivity(), Event.class);
 //        startActivity(info);
         return true;
