@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -18,9 +19,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.Parse;
+import com.parse.ParseAnonymousUtils;
+import com.parse.ParseInstallation;
+import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
-
     Dummy data = new Dummy();
     double latitude;
     double longitude;
@@ -32,40 +36,46 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+//        // Determine whether the current user is an anonymous user
+//        if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {
+//            // If user is anonymous, send the user to LoginSignupActivity.class
+//            Intent intent = new Intent(MainActivity.this, LoginSignUp.class);
+//            startActivity(intent);
+//            finish();
+//        } else {
+//
+//            ParseUser currentUser = ParseUser.getCurrentUser();
+//            if (currentUser != null) {
+//
+//                String struser = currentUser.getUsername().toString();
+//                Toast.makeText(getApplicationContext(), "Вы вошли как лох" + struser, Toast.LENGTH_SHORT).show();
+                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.map);
+                mapFragment.getMapAsync(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                newEvent();
+                        newEvent();
 
-            }
-        });
-
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//            getData(extras);
-//        }
-
-    }
-//    private void getData(Bundle extras) {
-//        double newLat = extras.getDouble("newLat");
-//        double newLong = extras.getDouble("newLong");
+                    }
+                });
 //
-//        String coords = new String(newLat +","+newLong);//
-//        Toast.makeText(this, coords, Toast.LENGTH_SHORT).show();
-////        LatLng coords = new LatLng(newLat, newLong);
-////        map.markerMaker(coords);
-//    }
+//            } else {
+//                // Send user to LoginSignupActivity.class
+//                Intent intent = new Intent(MainActivity.this,
+//                        LoginSignUp.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        }
+    }
 
     @Override
     public void onMapReady(GoogleMap map) {
-
         for (int i = 0; i < 3; i++)
         {
             LatLng sydney = new LatLng(data.lat[i], data.lon[i]);
@@ -80,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 String place = marker.getSnippet();
                 Intent details = new Intent(getApplicationContext(), DetailInfo.class);
                 details.putExtra("address", place);
-                startActivityForResult(details, 1);
+                startActivity(details);
                 return true;
             }
         });
